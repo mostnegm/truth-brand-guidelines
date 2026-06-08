@@ -1,8 +1,8 @@
+import { useRef, useEffect, useState } from "react";
 import imgHeroAnimation from "../imports/hero-animation.gif";
 import imgLogo from "../imports/logo.png";
 import svgPaths from "../imports/Desktop/svg-zu55n1rr92";
 import imgImg from "../imports/Desktop/8bf3bf08c81e69de97e14bc2f02da3f49d07177d.png";
-import imgImg1 from "../imports/Desktop/32d57331ab8465ef01084482ba1cddd074f5abdb.png";
 import imgImage1 from "../imports/Desktop/5b5894cc32643b9135aefbb77817117174c69bac.png";
 import imgImage2 from "../imports/Desktop/869fe559c7ca2d58d17aac5d43beeefe9dea87c8.png";
 import imgImage3 from "../imports/Desktop/52148539d95e27c315e4049bab7e73ee3e8ff33a.png";
@@ -13,6 +13,17 @@ import imgImage7 from "../imports/Desktop/d1cb64319fcaa2019811287862fbb275617182
 import imgImage8 from "../imports/Desktop/c4f5b8835ef888af539d9a8a165ede41a9b7a105.png";
 
 export default function App() {
+  const gridVizRef = useRef<HTMLDivElement>(null);
+  const [gridVizWidth, setGridVizWidth] = useState(0);
+
+  useEffect(() => {
+    const el = gridVizRef.current;
+    if (!el) return;
+    const observer = new ResizeObserver(() => setGridVizWidth(el.offsetWidth));
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div className="flex min-h-screen bg-white">
       {/* Sidebar - only visible on desktop */}
@@ -38,7 +49,7 @@ export default function App() {
               <li key={item.num}>
                 <a
                   href={`#${item.id}`}
-                  className="flex items-start gap-2 font-['Rethink_Sans',sans-serif] font-medium text-[15px] tracking-[-0.3px] text-left hover:text-[#152ae8] transition-colors"
+                  className="flex items-start gap-2 font-['Rethink_Sans',sans-serif] font-medium text-[15px] tracking-[-0.3px] text-left hover:text-[#155ee7] transition-colors"
                   onClick={(e) => {
                     e.preventDefault();
                     document.getElementById(item.id)?.scrollIntoView({ behavior: 'smooth' });
@@ -79,7 +90,7 @@ export default function App() {
               ].map((item) => (
                 <li key={item.num} className="flex items-start gap-2 font-['Rethink_Sans',sans-serif] font-medium text-[30px] tracking-[-0.6px]">
                   <span className="text-[#575757] leading-[1.2]">{item.num}</span>
-                  <span className="text-black leading-[1.2]">{item.label}</span>
+                  <span className="text-[#070b16] leading-[1.2]">{item.label}</span>
                 </li>
               ))}
             </ol>
@@ -91,16 +102,16 @@ export default function App() {
           <div className="flex flex-col gap-3 md:flex-row md:gap-8">
             <div className="md:flex-1">
               <h2 className="font-['Rethink_Sans',sans-serif] font-medium text-[60px] tracking-[-0.6px] leading-[1.1] whitespace-pre-wrap">
-                <span className="text-[#152ae8]">01</span>
-                <span className="text-black">  Brand Strategy</span>
+                <span className="text-[#155ee7]">01</span>
+                <span className="text-[#070b16]">  Brand Strategy</span>
               </h2>
             </div>
             <div className="flex flex-col gap-8 md:flex-1">
-              <p className="font-['Rethink_Sans',sans-serif] font-medium text-[15px] tracking-[-0.15px] text-[#575757] leading-[1.2]">
+              <p className="font-['Rethink_Sans',sans-serif] font-normal text-[15px] tracking-[-0.15px] text-[#575757] leading-[1.2]">
                 Saheeh operates in a landscape where information is infinite and attention is fragmented. The visual identity does one thing: move people through complexity — fast, without confusion, without noise.
               </p>
               <div className="bg-[rgba(0,0,0,0.1)] w-full aspect-[860/888]" />
-              <p className="font-['Rethink_Sans',sans-serif] font-medium text-[15px] tracking-[-0.15px] text-[#575757] leading-[1.2]">
+              <p className="font-['Rethink_Sans',sans-serif] font-normal text-[15px] tracking-[-0.15px] text-[#575757] leading-[1.2]">
                 To navigate without noise, function is a design discipline. No ornament without purpose. The system orients the reader, not impresses them — and gains power through constraint. That means no decoration that signals urgency without earning it, no multiple signals fighting for the same attention, and no imagery used as emotion management.
               </p>
             </div>
@@ -114,94 +125,14 @@ export default function App() {
             <div className="flex flex-col gap-3 md:flex-row md:gap-8">
               <div className="md:flex-1">
                 <h2 className="font-['Rethink_Sans',sans-serif] font-medium text-[60px] tracking-[-0.6px] leading-[1.1]">
-                  <span className="text-[#152ae8]">02</span>
-                  <span className="text-black">  Logo</span>
+                  <span className="text-[#155ee7]">02</span>
+                  <span className="text-[#070b16]">  Logo</span>
                 </h2>
               </div>
               <div className="md:flex-1">
-                <p className="font-['Rethink_Sans',sans-serif] font-medium text-[15px] tracking-[-0.15px] text-[#575757] leading-[1.2]">
-                  [to be defined]
+                <p className="font-['Rethink_Sans',sans-serif] font-normal text-[15px] tracking-[-0.15px] text-[#575757] leading-[1.2]">
+                  [to be updated]
                 </p>
-              </div>
-            </div>
-
-            {/* Logo Diagrams */}
-            <div className="flex flex-col gap-16 pt-10">
-              {/* Primary Lockup */}
-              <div className="flex flex-col gap-[10px]">
-                <h3 className="font-['Rethink_Sans',sans-serif] font-semibold text-[22px] tracking-[-0.22px] leading-[1.2]">
-                  Primary Lockup
-                </h3>
-                <div className="bg-[rgba(0,0,0,0.1)] w-full aspect-[966/500]" />
-              </div>
-
-              {/* Clearspace */}
-              <div className="flex flex-col gap-[10px]">
-                <h3 className="font-['Rethink_Sans',sans-serif] font-semibold text-[22px] tracking-[-0.22px] leading-[1.2]">
-                  Clearspace
-                </h3>
-                <div className="bg-[rgba(0,0,0,0.1)] w-full aspect-[464/240]" />
-              </div>
-
-              {/* Secondary Lockups */}
-              <div className="flex flex-col gap-[10px]">
-                <h3 className="font-['Rethink_Sans',sans-serif] font-semibold text-[22px] tracking-[-0.22px] leading-[1.2]">
-                  Secondary Lockups
-                </h3>
-                <div className="bg-[rgba(0,0,0,0.1)] w-full aspect-[966/500]" />
-              </div>
-
-              {/* Incorrect Usage */}
-              <div className="flex flex-col gap-[10px]">
-                <h3 className="font-['Rethink_Sans',sans-serif] font-semibold text-[22px] tracking-[-0.22px] leading-[1.2]">
-                  Incorrect Usage
-                </h3>
-                <div className="flex flex-col gap-[30px]">
-                  {/* Row 1 */}
-                  <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-                    {[
-                      "Do not resize the mark",
-                      "Do not rotate the logo",
-                      "Do not change the color of the mark alone",
-                    ].map((label) => (
-                      <div key={label} className="flex flex-col gap-[10px]">
-                        <div className="bg-[rgba(0,0,0,0.1)] w-full aspect-[464/240]" />
-                        <div className="flex gap-[5px] items-center">
-                          <svg className="shrink-0 size-4" fill="none" viewBox="0 0 16 16">
-                            <path d={svgPaths.p36ca9a00} fill="#F20909" />
-                            <path d="M5 4.79688L11.4 11.1969" stroke="white" strokeWidth="2" />
-                            <path d={svgPaths.p94a600} stroke="white" strokeWidth="2" />
-                          </svg>
-                          <p className="font-['Rethink_Sans',sans-serif] font-medium text-[13px] tracking-[-0.13px] leading-[1.2]">
-                            {label}
-                          </p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                  {/* Row 2 */}
-                  <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-                    {[
-                      "Do not outline the logo",
-                      "Do not reverse the lockup",
-                      "Do not add gradients the logo",
-                    ].map((label) => (
-                      <div key={label} className="flex flex-col gap-[10px]">
-                        <div className="bg-[rgba(0,0,0,0.1)] w-full aspect-[464/240]" />
-                        <div className="flex gap-[5px] items-center">
-                          <svg className="shrink-0 size-4" fill="none" viewBox="0 0 16 16">
-                            <path d={svgPaths.p36ca9a00} fill="#F20909" />
-                            <path d="M5 4.79688L11.4 11.1969" stroke="white" strokeWidth="2" />
-                            <path d={svgPaths.p94a600} stroke="white" strokeWidth="2" />
-                          </svg>
-                          <p className="font-['Rethink_Sans',sans-serif] font-medium text-[13px] tracking-[-0.13px] leading-[1.2]">
-                            {label}
-                          </p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
               </div>
             </div>
           </div>
@@ -214,17 +145,17 @@ export default function App() {
             <div className="flex flex-col gap-8 pb-10 md:flex-row md:gap-8">
               <div className="md:flex-1">
                 <h2 className="font-['Rethink_Sans',sans-serif] font-medium text-[60px] tracking-[-0.6px] leading-[1.1]">
-                  <span className="text-[#152ae8]">03</span>
-                  <span className="text-black">  Typography</span>
+                  <span className="text-[#155ee7]">03</span>
+                  <span className="text-[#070b16]">  Typography</span>
                 </h2>
               </div>
               <div className="flex flex-col gap-10 md:flex-1">
-                <div className="font-['Rethink_Sans',sans-serif] font-medium text-[15px] tracking-[-0.15px] text-[#575757] leading-[1.2] space-y-4">
+                <div className="font-['Rethink_Sans',sans-serif] font-normal text-[15px] tracking-[-0.15px] text-[#575757] leading-[1.2] space-y-4">
                   <p>
-                    Primary typeface <span className="text-[#152ae8]">(Alyamama)</span> carries the journalism and editorial voice. It is used for headlines, body text, pull quotes, and display numerals.
+                    Primary typeface <span className="text-[#155ee7]">(Alyamama)</span> carries the journalism and editorial voice. It is used for headlines, body text, pull quotes, and display numerals.
                   </p>
                   <p>
-                    Secondary typeface <span className="text-[#152ae8]">(Changa)</span> carries the system and the interface language. It is used for verdict tags, type cards, navigation labels, dates, and bylines.
+                    Secondary typeface <span className="text-[#155ee7]">(Changa)</span> carries the system and the interface language. It is used for verdict tags, type cards, navigation labels, dates, and bylines.
                   </p>
                 </div>
               </div>
@@ -265,12 +196,12 @@ export default function App() {
             <div className="flex flex-col gap-3 md:flex-row md:gap-8">
               <div className="md:flex-1">
                 <h2 className="font-['Rethink_Sans',sans-serif] font-medium text-[60px] tracking-[-0.6px] leading-[1.1]">
-                  <span className="text-[#152ae8]">04</span>
-                  <span className="text-black">  Color</span>
+                  <span className="text-[#155ee7]">04</span>
+                  <span className="text-[#070b16]">  Color</span>
                 </h2>
               </div>
               <div className="md:flex-1">
-                <p className="font-['Rethink_Sans',sans-serif] font-medium text-[15px] tracking-[-0.15px] text-[#575757] leading-[1.2]">
+                <p className="font-['Rethink_Sans',sans-serif] font-normal text-[15px] tracking-[-0.15px] text-[#575757] leading-[1.2]">
                   Saheeh's primary palette is built on three colors. Black is the default surface for all editorial content. White is the default surface for web. Blue is the color of truth — used for the grid, navigation, report and investigation type cards, and the logo.
                   <br /><br />
                   An accent palette of high-contrast backgrounds is permitted exclusively for social media snippets, when the content calls for breaking the rigidness of the primary palette. Logo and typography rules remain fixed on these backgrounds.
@@ -287,14 +218,14 @@ export default function App() {
                 <h3 className="font-['Rethink_Sans',sans-serif] font-semibold text-[22px] tracking-[-0.22px] leading-[1.2]">
                   Primary Palette
                 </h3>
-                <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+                <div className="flex flex-wrap gap-4">
                   {[
-                    { name: "Blue", hex: "#152AE8", bg: "bg-[#152ae8]" },
-                    { name: "Black", hex: "#000000", bg: "bg-[#040404]" },
-                    { name: "White", hex: "#FFFFFF", bg: "bg-white border border-black" },
+                    { name: "Blue", hex: "#155EE7", bg: "bg-[#155ee7]" },
+                    { name: "Black", hex: "#070B16", bg: "bg-[#070b16]" },
+                    { name: "White", hex: "#FFFFFF", bg: "bg-white border border-[rgba(0,0,0,0.1)]" },
                   ].map((color) => (
-                    <div key={color.hex} className="flex flex-col gap-[10px] items-center">
-                      <div className={`${color.bg} w-full aspect-square max-w-[240px] rounded-full`} />
+                    <div key={color.hex} className="flex flex-col gap-[10px] items-center w-[calc(50%-8px)] md:w-[calc(25%-12px)]">
+                      <div className={`${color.bg} w-full aspect-square rounded-full`} />
                       <div className="flex flex-col gap-1 font-['Rethink_Sans',sans-serif] font-medium text-[13px] tracking-[-0.13px] leading-[1.2]">
                         <p>{color.name}</p>
                         <p>Hex: {color.hex}</p>
@@ -309,15 +240,15 @@ export default function App() {
                 <h3 className="font-['Rethink_Sans',sans-serif] font-semibold text-[22px] tracking-[-0.22px] leading-[1.2]">
                   Accent Palette
                 </h3>
-                <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+                <div className="flex flex-wrap gap-4">
                   {[
                     { name: "Red", hex: "#F5423D", bg: "bg-[#f5423d]" },
                     { name: "Lime Green", hex: "#24E285", bg: "bg-[#24e285]" },
                     { name: "Pink", hex: "#FEA8CD", bg: "bg-[#fea8cd]" },
                     { name: "Yellow", hex: "#FBD769", bg: "bg-[#fbd769]" },
                   ].map((color) => (
-                    <div key={color.hex} className="flex flex-col gap-[10px] items-center">
-                      <div className={`${color.bg} w-full aspect-square max-w-[240px] rounded-full`} />
+                    <div key={color.hex} className="flex flex-col gap-[10px] items-center w-[calc(50%-8px)] md:w-[calc(25%-12px)]">
+                      <div className={`${color.bg} w-full aspect-square rounded-full`} />
                       <div className="flex flex-col gap-1 font-['Rethink_Sans',sans-serif] font-medium text-[13px] tracking-[-0.13px] leading-[1.2]">
                         <p>{color.name}</p>
                         <p>Hex: {color.hex}</p>
@@ -332,15 +263,15 @@ export default function App() {
                 <h3 className="font-['Rethink_Sans',sans-serif] font-semibold text-[22px] tracking-[-0.22px] leading-[1.2]">
                   Verdict Palette
                 </h3>
-                <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+                <div className="flex flex-wrap gap-4">
                   {[
                     { name: "Fabricated Purple", hex: "#940278", bg: "bg-[#940278]" },
                     { name: "Inaccurate Maroon", hex: "#B00035", bg: "bg-[#b00035]" },
                     { name: "Misleading Orange", hex: "#FF6524", bg: "bg-[#ff6524]" },
                     { name: "Accurate Yellow", hex: "#FFA024", bg: "bg-[#ffa024]" },
                   ].map((color) => (
-                    <div key={color.hex} className="flex flex-col gap-[10px] items-center">
-                      <div className={`${color.bg} w-full aspect-square max-w-[240px] rounded-full`} />
+                    <div key={color.hex} className="flex flex-col gap-[10px] items-center w-[calc(50%-8px)] md:w-[calc(25%-12px)]">
+                      <div className={`${color.bg} w-full aspect-square rounded-full`} />
                       <div className="flex flex-col gap-1 font-['Rethink_Sans',sans-serif] font-medium text-[13px] tracking-[-0.13px] leading-[1.2]">
                         <p>{color.name}</p>
                         <p>Hex: {color.hex}</p>
@@ -359,12 +290,12 @@ export default function App() {
             <div className="flex flex-col gap-8 pb-8 md:flex-row md:gap-8">
               <div className="md:flex-1">
                 <h2 className="font-['Rethink_Sans',sans-serif] font-medium text-[60px] tracking-[-0.6px] leading-[1.1]">
-                  <span className="text-[#152ae8]">05</span>
-                  <span className="text-black">  The Module</span>
+                  <span className="text-[#155ee7]">05</span>
+                  <span className="text-[#070b16]">  The Module</span>
                 </h2>
               </div>
               <div className="md:flex-1">
-                <p className="font-['Rethink_Sans',sans-serif] font-medium text-[15px] tracking-[-0.15px] text-[#575757] leading-[1.2] whitespace-pre-wrap">
+                <p className="font-['Rethink_Sans',sans-serif] font-normal text-[15px] tracking-[-0.15px] text-[#575757] leading-[1.2] whitespace-pre-wrap">
                   Every piece of content — a statement, a fake news verdict, a news story — is called a module. A unit of information with a fixed structure, always assembled from the same components. Only the content changes.
                   <br />
                   A module carries two pieces of information: what kind of content it is, and what the verdict is. These are represented by two cards.
@@ -385,18 +316,35 @@ export default function App() {
             <div className="flex flex-col gap-8 pb-8 md:flex-row md:gap-8">
               <div className="md:flex-1">
                 <h2 className="font-['Rethink_Sans',sans-serif] font-medium text-[60px] tracking-[-0.6px] leading-[1.1]">
-                  <span className="text-[#152ae8]">06</span>
-                  <span className="text-black">  The Grid</span>
+                  <span className="text-[#155ee7]">06</span>
+                  <span className="text-[#070b16]">  The Grid</span>
                 </h2>
               </div>
               <div className="md:flex-1">
-                <p className="font-['Rethink_Sans',sans-serif] font-medium text-[15px] tracking-[-0.15px] text-[#575757] leading-[1.2]">
+                <p className="font-['Rethink_Sans',sans-serif] font-normal text-[15px] tracking-[-0.15px] text-[#575757] leading-[1.2]">
                   The grid is the structural foundation of every Saheeh layout. All elements — margins, spacing, type size, and component placement — are bound to a single base unit of 32px.
                 </p>
               </div>
             </div>
-            <img alt="Grid system example" className="w-full object-cover" src={imgImg1} />
-            <p className="font-['Rethink_Sans',sans-serif] font-medium text-[15px] tracking-[-0.15px] text-[#575757] leading-[1.2] md:w-1/2">
+
+            {/* CSS dot grid visualization */}
+            {(() => {
+              const rowCount = gridVizWidth >= 768 ? 4 : 6;
+              const colCount = Math.floor(gridVizWidth / 32) + 1;
+              return (
+                <div ref={gridVizRef} className="w-full" style={{ height: rowCount * 32 }}>
+                  <svg width="100%" height="100%">
+                    {Array.from({ length: rowCount }, (_, row) =>
+                      Array.from({ length: colCount }, (_, col) => (
+                        <rect key={`${row}-${col}`} x={col * 32} y={row * 32} width={3} height={3} fill="#155ee7" />
+                      ))
+                    )}
+                  </svg>
+                </div>
+              );
+            })()}
+
+            <p className="font-['Rethink_Sans',sans-serif] font-normal text-[15px] tracking-[-0.15px] text-[#575757] leading-[1.2] md:w-1/2">
               Margins are always 6.2% of the document width on each side. Column count is calculated, not fixed: subtract both margins from the document width and divide by 32. Round to the nearest whole number. The result will always approximate 29 columns at the reference size of 1080px.
               <br /><br />
               Leading values must always be multiples of 32pt, maintaining the baseline grid increment across all formats. The visible dot grid inherits the 32px spacing directly — one dot per grid intersection. Dot size scales between 2px and 4px depending on document size. The spacing interval never changes.
@@ -410,12 +358,12 @@ export default function App() {
             <div className="flex flex-col gap-3 md:flex-row md:gap-8">
               <div className="md:flex-1">
                 <h2 className="font-['Rethink_Sans',sans-serif] font-medium text-[60px] tracking-[-0.6px] leading-[1.1]">
-                  <span className="text-[#152ae8]">07</span>
-                  <span className="text-black">  Imagery</span>
+                  <span className="text-[#155ee7]">07</span>
+                  <span className="text-[#070b16]">  Imagery</span>
                 </h2>
               </div>
               <div className="md:flex-1">
-                <p className="font-['Rethink_Sans',sans-serif] font-medium text-[15px] tracking-[-0.15px] text-[#575757] leading-[1.2]">
+                <p className="font-['Rethink_Sans',sans-serif] font-normal text-[15px] tracking-[-0.15px] text-[#575757] leading-[1.2]">
                   Saheeh uses documentary-style photography — real situations, real people in context. Images are always in color, high resolution, and directly relevant to the content they accompany. Preferred images are high contrast, neither too bright nor too dark. Do not use stock imagery, staged photography, or black and white photography.
                 </p>
               </div>
@@ -432,7 +380,7 @@ export default function App() {
                 <div key={i} className="flex flex-col gap-[10px]">
                   <img alt={item.title} className="w-full aspect-[1600/1066] object-cover object-center" src={item.img} />
                   <div className="flex flex-col gap-2 font-['Rethink_Sans',sans-serif] font-medium text-[13px] tracking-[-0.13px] leading-[1.2]">
-                    <p className="text-black">{item.title}</p>
+                    <p className="text-[#070b16]">{item.title}</p>
                     <p className="text-[#575757]">{item.desc}</p>
                   </div>
                 </div>
@@ -447,12 +395,12 @@ export default function App() {
             <div className="flex flex-col gap-3 md:flex-row md:gap-8">
               <div className="md:flex-1">
                 <h2 className="font-['Rethink_Sans',sans-serif] font-medium text-[60px] tracking-[-0.6px] leading-[1.1]">
-                  <span className="text-[#152ae8]">08</span>
-                  <span className="text-black">  Illustrations</span>
+                  <span className="text-[#155ee7]">08</span>
+                  <span className="text-[#070b16]">  Illustrations</span>
                 </h2>
               </div>
               <div className="md:flex-1">
-                <p className="font-['Rethink_Sans',sans-serif] font-medium text-[15px] tracking-[-0.15px] text-[#575757] leading-[1.2]">
+                <p className="font-['Rethink_Sans',sans-serif] font-normal text-[15px] tracking-[-0.15px] text-[#575757] leading-[1.2]">
                   Illustrations are used sparingly and purposefully to explain complex concepts or add visual interest where photography would not be appropriate. The style is clean, modern, and directly supportive of the content.
                 </p>
               </div>
