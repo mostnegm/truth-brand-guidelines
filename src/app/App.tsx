@@ -1,5 +1,6 @@
+import imgHeroAnimation from "../imports/hero-animation.gif";
+import imgLogo from "../imports/logo.png";
 import svgPaths from "../imports/Desktop/svg-zu55n1rr92";
-import imgSaheehLogoBlack1 from "../imports/Desktop/1c6e89d19f467c00283e2e66e0b264117c13f91d.png";
 import imgImg from "../imports/Desktop/8bf3bf08c81e69de97e14bc2f02da3f49d07177d.png";
 import imgImg1 from "../imports/Desktop/32d57331ab8465ef01084482ba1cddd074f5abdb.png";
 import imgImage1 from "../imports/Desktop/5b5894cc32643b9135aefbb77817117174c69bac.png";
@@ -18,7 +19,7 @@ export default function App() {
       <aside className="hidden lg:flex lg:flex-col lg:w-[280px] lg:fixed lg:left-0 lg:top-0 lg:h-screen lg:border-r lg:border-[rgba(0,0,0,0.1)]">
         {/* Logo */}
         <div className="border-b border-[rgba(0,0,0,0.1)] px-8 py-[30px]">
-          <img alt="Saheeh logo" className="h-[27px] w-[65px] object-cover" src={imgSaheehLogoBlack1} />
+          <img alt="Saheeh logo" className="w-[69px] h-[66px] object-contain" src={imgLogo} />
         </div>
 
         {/* Contents Navigation */}
@@ -55,7 +56,9 @@ export default function App() {
       {/* Main Content */}
       <main className="flex-1 lg:ml-[280px]">
         {/* Hero */}
-        <section className="bg-[rgba(0,0,0,0.1)] h-[262px] md:h-[540px] w-full" />
+        <section className="bg-white h-[262px] md:h-[540px] w-full flex items-center justify-center">
+          <img alt="Hero animation" className="max-w-[205px] max-h-[207px]" src={imgHeroAnimation} />
+        </section>
 
         {/* Table of Contents */}
         <section className="border-t border-[rgba(0,0,0,0.1)] px-5 py-8 md:px-8 md:py-8 lg:px-8 lg:py-8">
@@ -66,11 +69,13 @@ export default function App() {
             <ol className="flex flex-col gap-[10px] md:flex-1">
               {[
                 { label: "Brand Strategy", num: "01" },
-                { label: "Personality", num: "02" },
-                { label: "Logo", num: "03" },
+                { label: "Logo", num: "02" },
+                { label: "Typography", num: "03" },
                 { label: "Color", num: "04" },
-                { label: "Typography", num: "05" },
-                { label: "Art Direction", num: "06" },
+                { label: "The Module", num: "05" },
+                { label: "The Grid", num: "06" },
+                { label: "Imagery", num: "07" },
+                { label: "Illustrations", num: "08" },
               ].map((item) => (
                 <li key={item.num} className="flex items-start gap-2 font-['Rethink_Sans',sans-serif] font-medium text-[30px] tracking-[-0.6px]">
                   <span className="text-[#575757] leading-[1.2]">{item.num}</span>
@@ -214,10 +219,6 @@ export default function App() {
                 </h2>
               </div>
               <div className="flex flex-col gap-10 md:flex-1">
-                <p className="font-['Rethink_Sans',sans-serif] font-medium text-[15px] tracking-[-0.15px] text-[#575757] leading-[1.2]">
-                  Redo's typography balances clarity and professionalism with a modern yet timeless type pairing, reinforcing our commitment to accuracy, efficiency, and financial stability.
-                </p>
-                <div className="bg-[rgba(0,0,0,0.1)] w-full aspect-[467/300]" />
                 <div className="font-['Rethink_Sans',sans-serif] font-medium text-[15px] tracking-[-0.15px] text-[#575757] leading-[1.2] space-y-4">
                   <p>
                     Primary typeface <span className="text-[#152ae8]">(Alyamama)</span> carries the journalism and editorial voice. It is used for headlines, body text, pull quotes, and display numerals.
@@ -423,13 +424,13 @@ export default function App() {
             {/* Image Grid */}
             <div className="grid grid-cols-1 gap-8 md:grid-cols-2 pt-8">
               {[
-                { img: imgImage1, title: "Clean & Casual", desc: "Photography should feature modern, well-lit workspaces with a clean and organized feel. The focus should be on clarity, avoiding clutter or overly dramatic compositions." },
-                { img: imgImage2, title: "Real & Relatable", desc: "Capture real people in natural, unposed moments. Authenticity is key — avoid overly staged or formal setups." },
-                { img: imgImage3, title: "High Contrast", desc: "Images should have clear distinction between light and dark areas. Avoid photos that are too bright or too dark." },
-                { img: imgImage4, title: "Focused & Clear", desc: "Maintain sharp focus on the subject matter. Avoid excessive blur or abstract compositions." },
+                { img: imgImage1, title: "Lorem ipsum dolor", desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." },
+                { img: imgImage2, title: "Consectetur adipiscing", desc: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." },
+                { img: imgImage3, title: "Sed do eiusmod", desc: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." },
+                { img: imgImage4, title: "Tempor incididunt", desc: "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." },
               ].map((item, i) => (
                 <div key={i} className="flex flex-col gap-[10px]">
-                  <img alt={item.title} className="w-full object-cover" src={item.img} />
+                  <img alt={item.title} className="w-full aspect-[1600/1066] object-cover object-center" src={item.img} />
                   <div className="flex flex-col gap-2 font-['Rethink_Sans',sans-serif] font-medium text-[13px] tracking-[-0.13px] leading-[1.2]">
                     <p className="text-black">{item.title}</p>
                     <p className="text-[#575757]">{item.desc}</p>
