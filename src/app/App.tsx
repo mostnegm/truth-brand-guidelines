@@ -280,7 +280,7 @@ export default function App() {
               {
                 name: "Alexandria",
                 font: "font-['Alexandria',sans-serif]",
-                desc: "Alexandria sets the frame around the content, through four text styles organized by size. Each style has a default weight; where text at the same size uses another weight, it is listed under that style.",
+                desc: "Alexandria sets the interface around the content, through four text styles organized by size. Each style has a default weight; where text at the same size uses another weight, it is listed under that style.",
                 styles: [
                   {
                     name: "Secondary/Subheader",
