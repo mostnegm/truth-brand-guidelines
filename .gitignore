@@ -1,6 +1,5 @@
 node_modules/
 dist/
 package-lock.json
-dataviz/charts/
 .DS_Store
-brand guidelines/exports/
+exports/
