@@ -16,6 +16,7 @@ export type ArticleBlock =
 
 export type BlogArticle = {
   slug: string; // the URL: /blog/<slug>
+  oldSlugs?: string[]; // earlier addresses, sent on to the current one (filled in by the editor)
   title: string;
   date: string; // ISO date, YYYY-MM-DD
   thumbnail: string; // also the article's main image
@@ -25,6 +26,13 @@ export type BlogArticle = {
 export const BLOG_ARTICLES = data as BlogArticle[];
 
 export const findArticle = (slug: string) => BLOG_ARTICLES.find((a) => a.slug === slug);
+
+// The article that used to live at this address, if it has since been renamed.
+export const findMovedArticle = (slug: string) => BLOG_ARTICLES.find((a) => a.oldSlugs?.includes(slug));
+
+// Turns typed text into an address: lowercase letters and numbers, separated by single hyphens.
+export const toSlug = (text: string) =>
+  text.toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 
 export const dateFormat = new Intl.DateTimeFormat("en-GB", {
   day: "numeric",

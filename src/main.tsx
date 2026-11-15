@@ -2,7 +2,7 @@
   import App from "./app/App.tsx";
   import Blog from "./app/Blog.tsx";
   import BlogArticle from "./app/BlogArticle.tsx";
-  import { findArticle } from "./app/blog-articles.ts";
+  import { findArticle, findMovedArticle } from "./app/blog-articles.ts";
   import "./styles/index.css";
 
   // Pages, picked by URL: /blog is the blog, /blog/<slug> an article,
@@ -11,6 +11,9 @@
   const path = window.location.pathname.replace(/\/+$/, "");
   const slug = path.match(/^\/blog\/([^/]+)$/)?.[1];
   const article = slug ? findArticle(slug) : undefined;
+  // An article that was renamed: send old links on to its current address.
+  const moved = slug && !article ? findMovedArticle(slug) : undefined;
+  if (moved) window.location.replace(`/blog/${moved.slug}`);
 
   let page = <App />;
   if (article) {

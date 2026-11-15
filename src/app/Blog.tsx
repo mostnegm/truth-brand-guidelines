@@ -14,11 +14,11 @@ export default function Blog() {
 
         {/* Empty bar on desktop - same height as the sidebar's logo block, so the line under the logo continues.
             The heading is only for screen readers. */}
-        <header className="lg:h-[127px] lg:border-b lg:border-l lg:border-[rgba(0,0,0,0.1)]">
+        <header className="lg:h-[127px] lg:border-b lg:border-[rgba(0,0,0,0.1)]">
           <h1 className="sr-only">Blog</h1>
         </header>
 
-        <section className="px-5 py-8 pb-20 md:px-8 lg:border-l lg:pb-[120px]">
+        <section className="px-5 py-8 pb-20 md:px-8 lg:pb-[120px]">
           {/* Articles */}
           <ul className="grid grid-cols-1 gap-x-8 gap-y-12 md:grid-cols-2 xl:grid-cols-3">
             {articles.map((article) => (

@@ -48,9 +48,22 @@ function blogEditor(): Plugin {
         try {
           const { slug, article } = JSON.parse((await readBody(req)).toString('utf8'))
           const articles = JSON.parse(fs.readFileSync(dataFile, 'utf8'))
-          const i = articles.findIndex((a: { slug: string }) => a.slug === slug)
+          type Stored = { slug: string; oldSlugs?: string[] }
+          const i = articles.findIndex((a: Stored) => a.slug === slug)
           if (i < 0) return send(res, 404, { error: `No article "${slug}"` })
-          articles[i] = article
+          let oldSlugs: string[] = articles[i].oldSlugs ?? []
+          // Renaming the address: check the new one, and remember the old one so its links keep working.
+          if (article.slug !== slug) {
+            if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(article.slug))
+              return send(res, 400, { error: 'Use lowercase letters, numbers and hyphens only' })
+            const taken = articles.some(
+              (a: Stored, j: number) => j !== i && (a.slug === article.slug || a.oldSlugs?.includes(article.slug)),
+            )
+            if (taken) return send(res, 400, { error: `"${article.slug}" is already used by another article` })
+            oldSlugs = [...oldSlugs, slug]
+          }
+          oldSlugs = [...new Set(oldSlugs)].filter((s) => s !== article.slug)
+          articles[i] = { slug: article.slug, ...(oldSlugs.length ? { oldSlugs } : {}), ...article }
           fs.writeFileSync(dataFile, JSON.stringify(articles, null, 2) + '\n')
           send(res, 200, { ok: true })
         } catch (e) {

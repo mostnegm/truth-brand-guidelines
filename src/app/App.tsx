@@ -17,7 +17,7 @@ const HIDDEN_SECTIONS = new Set(["brand-strategy", "the-module", "the-grid", "im
 
 function PlaceholderSection({ id, num, title }: { id: string; num: string; title: string }) {
   return (
-    <section id={id} className="border-t border-[rgba(0,0,0,0.1)] px-5 py-8 md:px-8 md:py-8 lg:border-l lg:px-8 lg:pb-[120px]">
+    <section id={id} className="border-t border-[rgba(0,0,0,0.1)] px-5 py-8 md:px-8 md:py-8 lg:px-8 lg:pb-[120px]">
       <div className="flex flex-col gap-3 md:flex-row md:gap-8">
         <div className="md:flex-1">
           <h2 className="font-['Rethink_Sans',sans-serif] font-medium text-[60px] tracking-[-0.6px] leading-[1.1]">
@@ -94,7 +94,7 @@ export default function App() {
         {HIDDEN_SECTIONS.has("brand-strategy") ? (
           <PlaceholderSection id="brand-strategy" num="01" title="Brand Strategy" />
         ) : (
-        <section id="brand-strategy" className="border-t border-[rgba(0,0,0,0.1)] px-5 py-8 md:px-8 md:py-[88px] lg:border-l lg:px-8 lg:py-8 lg:pb-[120px]">
+        <section id="brand-strategy" className="border-t border-[rgba(0,0,0,0.1)] px-5 py-8 md:px-8 md:py-[88px] lg:px-8 lg:py-8 lg:pb-[120px]">
           <div className="flex flex-col gap-3 md:flex-row md:gap-8">
             <div className="md:flex-1">
               <h2 className="font-['Rethink_Sans',sans-serif] font-medium text-[60px] tracking-[-0.6px] leading-[1.1] whitespace-pre-wrap">
@@ -116,7 +116,7 @@ export default function App() {
         )}
 
         {/* Logo */}
-        <section id="logo" className="border-t border-[rgba(0,0,0,0.1)] px-5 py-8 md:px-8 md:py-8 lg:border-l lg:px-8 lg:pb-[120px]">
+        <section id="logo" className="border-t border-[rgba(0,0,0,0.1)] px-5 py-8 md:px-8 md:py-8 lg:px-8 lg:pb-[120px]">
           <div className="flex flex-col gap-8">
             {/* Header */}
             <div className="flex flex-col gap-3 md:flex-row md:gap-8">
@@ -136,7 +136,7 @@ export default function App() {
         </section>
 
         {/* Typography */}
-        <section id="typography" className="border-t border-[rgba(0,0,0,0.1)] px-5 py-8 md:px-8 md:py-8 lg:border-l lg:px-8 lg:pb-[120px]">
+        <section id="typography" className="border-t border-[rgba(0,0,0,0.1)] px-5 py-8 md:px-8 md:py-8 lg:px-8 lg:pb-[120px]">
           <div className="flex flex-col gap-8">
             {/* Header */}
             <div className="pb-10">
@@ -343,7 +343,7 @@ export default function App() {
         </section>
 
         {/* Color */}
-        <section id="color" className="border-t border-[rgba(0,0,0,0.1)] px-5 py-8 md:px-8 md:py-8 lg:border-l lg:px-8">
+        <section id="color" className="border-t border-[rgba(0,0,0,0.1)] px-5 py-8 md:px-8 md:py-8 lg:px-8">
           <div className="flex flex-col gap-8">
             {/* Header */}
             <div className="flex flex-col gap-3 md:flex-row md:gap-8">
@@ -445,7 +445,7 @@ export default function App() {
         {HIDDEN_SECTIONS.has("the-module") ? (
           <PlaceholderSection id="the-module" num="05" title="The Module" />
         ) : (
-        <section id="the-module" className="border-t border-[rgba(0,0,0,0.1)] px-5 py-8 md:px-8 md:py-8 lg:border-l lg:px-8 lg:pb-[120px]">
+        <section id="the-module" className="border-t border-[rgba(0,0,0,0.1)] px-5 py-8 md:px-8 md:py-8 lg:px-8 lg:pb-[120px]">
           <div className="flex flex-col gap-8">
             <div className="flex flex-col gap-8 pb-8 md:flex-row md:gap-8">
               <div className="md:flex-1">
@@ -475,7 +475,7 @@ export default function App() {
         {HIDDEN_SECTIONS.has("the-grid") ? (
           <PlaceholderSection id="the-grid" num="06" title="The Grid" />
         ) : (
-        <section id="the-grid" className="border-t border-[rgba(0,0,0,0.1)] px-5 py-8 md:px-8 md:py-8 lg:border-l lg:px-8 lg:pb-[120px]">
+        <section id="the-grid" className="border-t border-[rgba(0,0,0,0.1)] px-5 py-8 md:px-8 md:py-8 lg:px-8 lg:pb-[120px]">
           <div className="flex flex-col gap-8">
             <div className="flex flex-col gap-8 pb-8 md:flex-row md:gap-8">
               <div className="md:flex-1">
@@ -521,7 +521,7 @@ export default function App() {
         {HIDDEN_SECTIONS.has("imagery") ? (
           <PlaceholderSection id="imagery" num="07" title="Imagery" />
         ) : (
-        <section id="imagery" className="border-t border-[rgba(0,0,0,0.1)] px-5 py-8 md:px-8 md:py-8 lg:border-l lg:px-8">
+        <section id="imagery" className="border-t border-[rgba(0,0,0,0.1)] px-5 py-8 md:px-8 md:py-8 lg:px-8">
           <div className="flex flex-col gap-8">
             <div className="flex flex-col gap-3 md:flex-row md:gap-8">
               <div className="md:flex-1">
@@ -562,7 +562,7 @@ export default function App() {
         {HIDDEN_SECTIONS.has("illustrations") ? (
           <PlaceholderSection id="illustrations" num="08" title="Illustrations" />
         ) : (
-        <section id="illustrations" className="border-t border-[rgba(0,0,0,0.1)] px-5 py-8 pb-20 md:px-8 md:py-8 md:pb-20 lg:border-l lg:px-8 lg:pb-20">
+        <section id="illustrations" className="border-t border-[rgba(0,0,0,0.1)] px-5 py-8 pb-20 md:px-8 md:py-8 md:pb-20 lg:px-8 lg:pb-20">
           <div className="flex flex-col gap-8">
             <div className="flex flex-col gap-3 md:flex-row md:gap-8">
               <div className="md:flex-1">

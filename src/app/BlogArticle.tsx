@@ -3,7 +3,7 @@ import Sidebar from "./components/Sidebar";
 import MobileLogoBar from "./components/MobileLogoBar";
 import SymbolTable from "./components/SymbolTable";
 import WordmarkTable from "./components/WordmarkTable";
-import { dateFormat, type ArticleBlock, type BlogArticle as Article } from "./blog-articles";
+import { dateFormat, toSlug, type ArticleBlock, type BlogArticle as Article } from "./blog-articles";
 
 // On the dev server (pnpm dev) every text and image on this page is editable and
 // changes are saved to blog-articles.json. The deployed site is read-only.
@@ -26,12 +26,13 @@ const styles = {
 };
 
 export default function BlogArticle({ article }: { article: Article }) {
+  const [slug, setSlug] = useState(article.slug);
   const [title, setTitle] = useState(article.title);
   const [date, setDate] = useState(article.date);
   const [thumbnail, setThumbnail] = useState(article.thumbnail);
   const [blocks, setBlocks] = useState<DraftBlock[]>(() => article.body.map(withId));
   const [focusId, setFocusId] = useState<string | null>(null);
-  const status = useAutosave(article.slug, { slug: article.slug, title, date, thumbnail, body: blocks });
+  const { status, error } = useAutosave(article.slug, { slug, title, date, thumbnail, body: blocks });
 
   const updateBlock = (id: string, patch: Partial<ArticleBlock>) =>
     setBlocks((bs) => bs.map((b) => (b.id === id ? ({ ...b, ...patch } as DraftBlock) : b)));
@@ -66,7 +67,7 @@ export default function BlogArticle({ article }: { article: Article }) {
         <MobileLogoBar />
 
         {/* Top bar - same height as the sidebar's logo block, so its bottom line continues the logo's */}
-        <div className="flex items-center justify-between gap-4 border-b border-[rgba(0,0,0,0.1)] px-5 py-5 md:px-8 lg:h-[127px] lg:border-l lg:py-0">
+        <div className="flex items-center justify-between gap-4 border-b border-[rgba(0,0,0,0.1)] px-5 py-5 md:px-8 lg:h-[127px] lg:py-0">
           {/* Breadcrumb: Blog > article title */}
           <nav aria-label="Breadcrumb" className="min-w-0">
             <ol className={`flex items-center gap-2 ${font} font-medium text-[15px] tracking-[-0.3px] leading-[1.2]`}>
@@ -85,14 +86,17 @@ export default function BlogArticle({ article }: { article: Article }) {
           </nav>
         </div>
 
-        <article className="px-5 py-8 pb-20 md:px-8 lg:border-l lg:pt-[60px] lg:pb-[120px]">
+        <article className="px-5 py-8 pb-20 md:px-8 lg:pt-[60px] lg:pb-[120px]">
           {/* Title and text share a centered reading column; the photo is wider, also centered */}
           <Text as="h1" value={title} onChange={setTitle} placeholder="Article title"
             className={`mx-auto max-w-[680px] text-center ${styles.title}`} />
 
           <div className="mt-3 text-center">
             {EDITABLE ? (
-              <DateField value={date} onChange={setDate} />
+              <>
+                <DateField value={date} onChange={setDate} />
+                <SlugField value={slug} onChange={setSlug} />
+              </>
             ) : (
               <time dateTime={date} className={styles.date}>{dateFormat.format(new Date(date))}</time>
             )}
@@ -160,18 +164,22 @@ export default function BlogArticle({ article }: { article: Article }) {
 
       {EDITABLE && (
         <div className={`fixed bottom-4 right-4 z-50 rounded-full border border-[rgba(0,0,0,0.1)] bg-white px-3 py-1.5 ${font} text-[12px] leading-[1.2] shadow-sm ${status === "error" ? "text-[#c2410c]" : "text-[#737373]"}`}>
-          Editing (dev only) · {status === "saving" ? "Saving…" : status === "error" ? "Couldn't save, see console" : "Saved"}
+          Editing (dev only) · {status === "saving" ? "Saving…" : status === "error" ? `Couldn't save: ${error}` : "Saved"}
         </div>
       )}
     </div>
   );
 }
 
-// Saves the article half a second after the last change.
-function useAutosave(slug: string, article: Omit<Article, "body"> & { body: DraftBlock[] }) {
+// Saves the article half a second after the last change. `initialSlug` is the address the
+// article had when the page opened; after a rename is saved, the page moves to the new address.
+function useAutosave(initialSlug: string, article: Omit<Article, "body" | "oldSlugs"> & { body: DraftBlock[] }) {
   const [status, setStatus] = useState<"saved" | "saving" | "error">("saved");
+  const [error, setError] = useState("");
   const json = JSON.stringify({ ...article, body: article.body.map(({ id: _id, ...b }) => b) });
   const lastSaved = useRef(json);
+  const savedSlug = useRef(initialSlug);
+  const slug = savedSlug.current;
 
   useEffect(() => {
     if (!EDITABLE || json === lastSaved.current) return;
@@ -183,18 +191,52 @@ function useAutosave(slug: string, article: Omit<Article, "body"> & { body: Draf
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ slug, article: JSON.parse(json) }),
         });
-        if (!res.ok) throw new Error(await res.text());
+        if (!res.ok) throw new Error((await res.json().catch(() => null))?.error ?? res.statusText);
         lastSaved.current = json;
+        if (article.slug !== savedSlug.current) {
+          savedSlug.current = article.slug;
+          window.history.replaceState(null, "", `/blog/${article.slug}`);
+        }
         setStatus("saved");
       } catch (e) {
         console.error("Article save failed:", e);
+        setError(e instanceof Error ? e.message : String(e));
         setStatus("error");
       }
     }, 500);
     return () => clearTimeout(timer);
-  }, [slug, json]);
+  }, [slug, json, article.slug]);
 
-  return status;
+  return { status, error };
+}
+
+// The article's address (dev only). Applied when you press Enter or click away.
+function SlugField({ value, onChange }: { value: string; onChange: (value: string) => void }) {
+  const [text, setText] = useState(value);
+  useEffect(() => setText(value), [value]);
+  const commit = () => {
+    const next = toSlug(text);
+    if (next && next !== value) onChange(next);
+    else setText(value);
+  };
+  return (
+    <label className={`mt-2 flex items-center justify-center gap-0.5 ${styles.date}`}>
+      <span>Address: /blog/</span>
+      <input
+        value={text}
+        size={Math.max(text.length, 4)}
+        spellCheck={false}
+        aria-label="Article address"
+        onChange={(e) => setText(e.target.value)}
+        onBlur={commit}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") e.currentTarget.blur();
+          if (e.key === "Escape") { setText(value); requestAnimationFrame(() => e.currentTarget?.blur()); }
+        }}
+        className="rounded-[2px] bg-transparent px-0.5 text-[#070b16] outline-none transition-colors hover:bg-[#155ee7]/[0.06] focus:bg-[#155ee7]/[0.06]"
+      />
+    </label>
+  );
 }
 
 // Text that becomes editable in place on the dev server.
