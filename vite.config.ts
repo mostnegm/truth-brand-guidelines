@@ -1,6 +1,7 @@
 import { defineConfig, type Plugin } from 'vite'
 import path from 'path'
 import fs from 'fs'
+import { execFileSync } from 'child_process'
 import type { IncomingMessage, ServerResponse } from 'http'
 import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
@@ -68,6 +69,19 @@ function blogEditor(): Plugin {
           const name = `${base}-${Date.now().toString(36)}${ext}`
           fs.mkdirSync(imageDir, { recursive: true })
           fs.writeFileSync(path.join(imageDir, name), await readBody(req))
+          // WebM doesn't play on many iPhones, so convert it to MP4 (H.264), which plays everywhere.
+          if (ext === '.webm') {
+            const mp4 = name.replace(/\.webm$/, '.mp4')
+            try {
+              execFileSync('ffmpeg', ['-v', 'error', '-y', '-i', path.join(imageDir, name),
+                '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-crf', '23', '-movflags', '+faststart', '-an',
+                '-vf', 'scale=trunc(iw/2)*2:trunc(ih/2)*2', path.join(imageDir, mp4)])
+              fs.unlinkSync(path.join(imageDir, name))
+              return send(res, 200, { src: `/blog-images/${mp4}` })
+            } catch (e) {
+              console.warn('[blog-editor] WebM to MP4 conversion failed, keeping the WebM:', e)
+            }
+          }
           send(res, 200, { src: `/blog-images/${name}` })
         } catch (e) {
           send(res, 500, { error: String(e) })
