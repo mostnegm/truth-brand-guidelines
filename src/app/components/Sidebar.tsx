@@ -13,7 +13,6 @@ const CONTENTS = [
 
 const RELATED_LINKS = [
   { label: "Brand", href: "/", page: "guidelines" },
-  { label: "Charts", href: "https://truth-brand.vercel.app/charts" },
   { label: "Blog", href: "/blog", page: "blog" },
 ];
 
