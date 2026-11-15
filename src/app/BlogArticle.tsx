@@ -265,10 +265,37 @@ function DateField({ value, onChange }: { value: string; onChange: (value: strin
 // Videos play like a gif: muted, looping, no controls.
 const isVideoFile = (src: string) => /\.(webm|mp4|mov)$/i.test(src);
 function Media({ src, className }: { src: string; className: string }) {
-  return isVideoFile(src) ? (
-    <video className={className} src={src} autoPlay muted loop playsInline />
-  ) : (
-    <img alt="" className={className} src={src} />
+  return isVideoFile(src) ? <LoopingVideo src={src} className={className} /> : <img alt="" className={className} src={src} />;
+}
+
+// iPhones only autoplay a video that is muted in the page itself, but React never writes the
+// `muted` attribute into the page. So set it by hand and start playback; if the phone still
+// refuses (e.g. Low Power Mode), show the play controls instead of an empty box.
+function LoopingVideo({ src, className }: { src: string; className: string }) {
+  const ref = useRef<HTMLVideoElement>(null);
+  const [blocked, setBlocked] = useState(false);
+
+  useEffect(() => {
+    const video = ref.current;
+    if (!video) return;
+    video.muted = true;
+    video.defaultMuted = true;
+    video.setAttribute("muted", "");
+    video.play().catch(() => setBlocked(true));
+  }, [src]);
+
+  return (
+    <video
+      ref={ref}
+      className={className}
+      src={src}
+      autoPlay
+      muted
+      loop
+      playsInline
+      preload="auto"
+      controls={blocked}
+    />
   );
 }
 
