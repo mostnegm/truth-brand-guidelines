@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState } from "react";
 import imgHeroAnimation from "../imports/hero-animation.gif";
-import imgLogo from "../imports/logo.png";
+import Sidebar from "./components/Sidebar";
 import svgPaths from "../imports/Desktop/svg-zu55n1rr92";
 import imgImg from "../imports/Desktop/8bf3bf08c81e69de97e14bc2f02da3f49d07177d.png";
 import imgImage1 from "../imports/Desktop/5b5894cc32643b9135aefbb77817117174c69bac.png";
@@ -39,6 +39,12 @@ export default function App() {
   const gridVizRef = useRef<HTMLDivElement>(null);
   const [gridVizWidth, setGridVizWidth] = useState(0);
 
+  // Arriving from another page with a section in the URL (e.g. /#color).
+  useEffect(() => {
+    const id = decodeURIComponent(window.location.hash.slice(1));
+    if (id) document.getElementById(id)?.scrollIntoView();
+  }, []);
+
   useEffect(() => {
     const el = gridVizRef.current;
     if (!el) return;
@@ -49,43 +55,7 @@ export default function App() {
 
   return (
     <div className="flex min-h-screen bg-white">
-      {/* Sidebar - only visible on desktop */}
-      <aside className="hidden lg:flex lg:flex-col lg:w-[280px] lg:fixed lg:left-0 lg:top-0 lg:h-screen lg:border-r lg:border-[rgba(0,0,0,0.1)]">
-        {/* Logo */}
-        <div className="border-b border-[rgba(0,0,0,0.1)] px-8 py-[30px]">
-          <img alt="Saheeh logo" className="w-[69px] h-[66px] object-contain" src={imgLogo} />
-        </div>
-
-        {/* Contents Navigation */}
-        <nav className="border-b border-[rgba(0,0,0,0.1)] pb-[30px] pt-[30px]">
-          <ol className="flex flex-col gap-[10px] px-8">
-            {[
-              { label: "Brand Strategy", num: "01", id: "brand-strategy" },
-              { label: "Logo", num: "02", id: "logo" },
-              { label: "Typography", num: "03", id: "typography" },
-              { label: "Color", num: "04", id: "color" },
-              { label: "The Module", num: "05", id: "the-module" },
-              { label: "The Grid", num: "06", id: "the-grid" },
-              { label: "Imagery", num: "07", id: "imagery" },
-              { label: "Illustrations", num: "08", id: "illustrations" },
-            ].map((item) => (
-              <li key={item.num}>
-                <a
-                  href={`#${item.id}`}
-                  className="flex items-start gap-2 font-['Rethink_Sans',sans-serif] font-medium text-[15px] tracking-[-0.3px] text-left hover:text-[#155ee7] transition-colors"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    document.getElementById(item.id)?.scrollIntoView({ behavior: 'smooth' });
-                  }}
-                >
-                  <span className="leading-[1.2]">{item.label}</span>
-                  <span className="text-[#575757] text-[10px] leading-[1.2]">{item.num}</span>
-                </a>
-              </li>
-            ))}
-          </ol>
-        </nav>
-      </aside>
+      <Sidebar page="guidelines" />
 
       {/* Main Content */}
       <main className="flex-1 lg:ml-[280px]">

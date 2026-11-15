@@ -1,7 +1,6 @@
 {
   "rewrites": [
-    { "source": "/charts", "destination": "https://truth-charts.vercel.app/charts/" },
-    { "source": "/charts/", "destination": "https://truth-charts.vercel.app/charts/" },
-    { "source": "/charts/:path+", "destination": "https://truth-charts.vercel.app/charts/:path+" }
+    { "source": "/blog", "destination": "/index.html" },
+    { "source": "/blog/:slug", "destination": "/index.html" }
   ]
 }
