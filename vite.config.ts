@@ -108,9 +108,65 @@ function blogEditor(): Plugin {
   }
 }
 
+// Link previews (WhatsApp, Facebook, LinkedIn...): those apps read Open Graph tags
+// from the HTML without running JavaScript, so at build time each article gets its
+// own copy of index.html at dist/blog/<slug>/index.html, with its title and
+// thumbnail in the tags. Vercel serves that file before the /blog/:slug rewrite.
+const SITE_URL = 'https://truth-brand.vercel.app'
+
+function articlePreviews(): Plugin {
+  const escape = (s: string) =>
+    s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+  let outDir = 'dist'
+
+  return {
+    name: 'article-previews',
+    apply: 'build',
+    configResolved(config) {
+      outDir = path.resolve(config.root, config.build.outDir)
+    },
+    closeBundle() {
+      const html = fs.readFileSync(path.join(outDir, 'index.html'), 'utf8')
+      const articles = JSON.parse(
+        fs.readFileSync(path.resolve(__dirname, 'src/app/blog-articles.json'), 'utf8'),
+      )
+      for (const article of articles) {
+        const url = `${SITE_URL}/blog/${article.slug}`
+        const firstParagraph = article.body.find((b: { type: string }) => b.type === 'paragraph')?.text ?? ''
+        const text = firstParagraph.replace(/\s+/g, ' ').trim()
+        const description = text.length <= 200 ? text : text.slice(0, 200).replace(/\s+\S*$/, '') + '…'
+        const title = `${article.title} - Truth Blog`
+        const tags = [
+          ['og:type', 'article'],
+          ['og:site_name', 'Truth'],
+          ['og:url', url],
+          ['og:title', article.title],
+          ['og:description', description],
+          ['og:image', SITE_URL + article.thumbnail],
+        ]
+          .map(([p, c]) => `<meta property="${p}" content="${escape(c)}" />`)
+          .concat(
+            `<meta name="description" content="${escape(description)}" />`,
+            `<meta name="twitter:card" content="summary_large_image" />`,
+          )
+          .join('\n    ')
+        const page = html
+          .replace(/<title>.*?<\/title>/, `<title>${escape(title)}</title>\n    ${tags}`)
+        // The current address, and earlier ones (the app sends those on to the current one).
+        for (const slug of [article.slug, ...(article.oldSlugs ?? [])]) {
+          const dir = path.join(outDir, 'blog', slug)
+          fs.mkdirSync(dir, { recursive: true })
+          fs.writeFileSync(path.join(dir, 'index.html'), page)
+        }
+      }
+    },
+  }
+}
+
 export default defineConfig({
   plugins: [
     blogEditor(),
+    articlePreviews(),
     figmaAssetResolver(),
     // The React and Tailwind plugins are both required for Make, even if
     // Tailwind is not being actively used – do not remove them
