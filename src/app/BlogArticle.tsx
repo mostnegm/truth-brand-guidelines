@@ -3,6 +3,7 @@ import Sidebar from "./components/Sidebar";
 import MobileLogoBar from "./components/MobileLogoBar";
 import SymbolTable from "./components/SymbolTable";
 import WordmarkTable from "./components/WordmarkTable";
+import LogoEditionsTable from "./components/LogoEditionsTable";
 import { dateFormat, toSlug, type ArticleBlock, type BlogArticle as Article } from "./blog-articles";
 
 // On the dev server (pnpm dev) every text and image on this page is editable and
@@ -152,6 +153,8 @@ export default function BlogArticle({ article }: { article: Article }) {
                   <SymbolTable />
                 ) : block.type === "wordmarkTable" ? (
                   <WordmarkTable />
+                ) : block.type === "logoEditionsTable" ? (
+                  <LogoEditionsTable />
                 ) : (
                   <hr className="my-5 border-0 border-t border-[rgba(0,0,0,0.1)]" />
                 )}

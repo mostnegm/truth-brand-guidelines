@@ -10,11 +10,11 @@
     "body": [
       {
         "type": "paragraph",
-        "text": "A revamp starts with a constraint that a new identity doesn’t have: people already know the old logo. Saheeh’s symbol, an eye iris inside concentric rings, is how its audience recognizes the outlet, and dropping it would mean rebuilding that recognition from zero.\n\nBut the old mark didn’t fit the brand we were now defining. It was built from soft, rounded strokes and three nested layers competing for the same small space. At avatar size its gaps closed up and the iris got lost among the rings, so it was neither precise up close nor readable at a glance. The new logo's task is narrow: keep enough of the original that a returning reader still recognizes it, namely the eye iris at the center and the circular frame around it, and rebuild everything else."
+        "text": "A revamp starts with a constraint that a new identity doesn’t have: people already know the old logo. Saheeh’s symbol, an eye inside concentric rings, is how its audience recognizes the outlet, and dropping it would mean rebuilding that recognition from zero.\n\nBut the old mark didn’t fit the brand we were now defining. It was built from soft, rounded strokes and three nested layers competing for the same small space. At avatar size its gaps closed up and the eye got lost among the rings. The new logo's task is: keep enough of the original that a returning reader still recognizes it, and rebuild everything else around the brand’s new values."
       },
       {
         "type": "heading",
-        "text": "From a decoration to an instrument"
+        "text": "The brand’s new values"
       },
       {
         "type": "image",
@@ -22,14 +22,14 @@
       },
       {
         "type": "paragraph",
-        "text": "The question was what the old symbol and the new brand had in common, and the answer was the act of looking. The new brand needed something closer to examining: looking with a method. That is what a reticle is: the overlay that cameras, microscopes and scopes place over what they show, to mark where to look. Making the symbol resemble a reticle lets us keep the eye, while changing what surrounds it from decoration into an instrument. The variations below are different ways of making that shift, and each was judged by how much of the original it kept and how much of the new brand it carried."
+        "text": "The new brand is a navigation system for information. The question was what the old symbol and the new brand had in common, and the answer was the act of looking. The new brand needed something closer to examining: looking with a method. That is what a reticle is: the overlay that optical devices place over what they show, to mark where to look. Making the symbol resemble a reticle lets us keep the eye, while changing what surrounds it from decoration into an instrument. The variations below are different ways of making that shift, and each was judged by how much of the original it kept and how much of the new brand it carried."
       },
       {
         "type": "symbolTable"
       },
       {
         "type": "paragraph",
-        "text": "Some variations kept too much of the original like symbol 1 that holds on to the middle ring and is recognizable immediately, but it carries over the crowding that made the old mark hard to read at small sizes. Others moved too far by breaking the circle, which is one of the main things a returning reader recognizes.\n\nMy personal favorite is symbol 3, as it keeps the most of the original while changing the most about how it’s built, and that’s where the new brand comes in. It’s precise because the rounded ends are replaced by flat cuts. These cuts are also radial, each one pointing toward the center, making the whole frame direct attention to the iris."
+        "text": "Some variations kept too much of the original like symbol 1 that holds on to the middle ring and is recognizable immediately, but it carries over the crowding that made the old mark hard to read at small sizes. Others moved too far by breaking the circle, which is one of the main things a returning reader recognizes.\n\nMy personal favorite is symbol 3, as it keeps the most of the original while changing the most about how it’s built, and that’s where the new brand comes in. It’s precise because the rounded ends are replaced by flat cuts. These cuts are also radial, each one pointing toward the center, making the whole frame direct attention to the eye."
       },
       {
         "type": "heading",
@@ -44,11 +44,18 @@
       },
       {
         "type": "paragraph",
-        "text": "Alyamama and Alexandria both already have a job in the new brand. Alyamama is the primary typeface and Alexandria is the secondary typeface. Of the two, Alexandria comes closer to what the wordmark needed. Its clean, even strokes sit well beside the symbol, but its round, open forms give it a softer voice than the symbol’s flat cuts. \n\nQuest stands apart from both roles: it keeps the structure of the original letters and is built with more flat cuts.\n\nFinally, symbol 3 and the Quest wordmark make up the proposed logo. The animation below shows it taking shape from the original, so the two can be seen as one continuous mark rather than a before and after."
+        "text": "Alyamama and Alexandria both already have a job in the new brand. Alyamama is the primary typeface and Alexandria is the secondary typeface. Of the two, Alexandria comes closer to what the wordmark needed. Its clean, even strokes sit well beside the symbol, but its round, open forms give it a softer voice than the symbol’s flat cuts. \n\nQuest stands apart from both roles: it keeps the structure of the original letters and is built with more flat cuts."
       },
       {
         "type": "video",
         "src": "/blog-images/v1-mwhtpt9h.gif"
+      },
+      {
+        "type": "logoEditionsTable"
+      },
+      {
+        "type": "paragraph",
+        "text": "Finally, symbol 3 and the Quest wordmark make up the proposed logo system. It keeps what readers already recognize, rebuilds the rest around the brand’s new values, and extends to every future edition.\n\nThis article will be updated as discussions develop, with any changes to the symbol, the wordmark or the reasoning behind them."
       }
     ]
   }

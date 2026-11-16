@@ -12,7 +12,8 @@ export type ArticleBlock =
   | { type: "video"; src: string } // webm/mp4 play muted on loop; a gif shows as an image
   | { type: "separator" }
   | { type: "symbolTable" } // the nine symbol variations, components/SymbolTable.tsx
-  | { type: "wordmarkTable" }; // the three wordmark groups, components/WordmarkTable.tsx
+  | { type: "wordmarkTable" } // the three wordmark groups, components/WordmarkTable.tsx
+  | { type: "logoEditionsTable" }; // the three edition logos, components/LogoEditionsTable.tsx
 
 export type BlogArticle = {
   slug: string; // the URL: /blog/<slug>

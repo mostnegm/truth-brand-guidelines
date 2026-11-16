@@ -376,7 +376,7 @@ export default function App() {
                 {
                   title: "Neutrals",
                   colors: [
-                    { token: "neutrals/white", hex: "#FFFFFF", bg: "bg-white border border-[#9bbbf5]", use: "Background for special cards like statements and infographics." },
+                    { token: "neutrals/white", hex: "#FFFFFF", bg: "bg-white border border-[#a6aab1]", use: "Background for special cards like statements and infographics." },
                     { token: "neutrals/300", hex: "#565A63", bg: "bg-[#565a63]", use: "Subtitle text, type tag text and type tag borders." },
                     { token: "neutrals/600", hex: "#A6AAB1", bg: "bg-[#a6aab1]", use: "Utility icons (e.g. search, language)." },
                     { token: "neutrals/800", hex: "#E0E4E9", bg: "bg-[#e0e4e9]", use: "Type tag background." },
